@@ -2,6 +2,11 @@ package main
 
 import "fmt"
 
+const (
+	defaultMinTemperature = 15
+	defaultMaxTemperature = 30
+)
+
 type department struct {
 	minTemp int
 	maxTemp int
@@ -9,8 +14,8 @@ type department struct {
 
 func newDepartment() *department {
 	return &department{
-		minTemp: 15,
-		maxTemp: 30,
+		minTemp: defaultMinTemperature,
+		maxTemp: defaultMaxTemperature,
 	}
 }
 
@@ -31,30 +36,32 @@ func (d *department) getDesiredTemperature() int {
 	if d.minTemp <= d.maxTemp {
 		return d.minTemp
 	}
+
 	return -1
 }
 
 func main() {
 	var (
-		n, k int
+		departmentAmount int
+		employeeAmount   int
 	)
 
-	if _, err := fmt.Scan(&n); err != nil {
+	if _, err := fmt.Scan(&departmentAmount); err != nil {
 		fmt.Println("Invalid number or departments")
 	}
 
-	if _, err := fmt.Scan(&k); err != nil {
+	if _, err := fmt.Scan(&employeeAmount); err != nil {
 		fmt.Println("Invalid number of employees")
 	}
 
-	for i := 0; i < n; i++ {
+	for range departmentAmount {
 
 		dept := newDepartment()
 
-		for j := 0; j < k; j++ {
+		for range employeeAmount {
 
-			var op string
-			if _, err := fmt.Scan(&op); err != nil {
+			var operator string
+			if _, err := fmt.Scan(&operator); err != nil {
 				fmt.Println("Invalid operator")
 			}
 
@@ -63,11 +70,10 @@ func main() {
 				fmt.Println("Invalid temperature limit value")
 			}
 
-			dept.updateDesiredTemperature(op, temp)
+			dept.updateDesiredTemperature(operator, temp)
 
 			desiredTemp := dept.getDesiredTemperature()
 			fmt.Println(desiredTemp)
 		}
 	}
-
 }
