@@ -73,5 +73,9 @@ func main() {
 			desiredTemp := dept.getDesiredTemperature()
 			fmt.Println(desiredTemp)
 		}
+
+		if _, err := fmt.Scan(&employeeAmount); err != nil {
+			fmt.Println("Invalid number of employees")
+		}
 	}
 }
