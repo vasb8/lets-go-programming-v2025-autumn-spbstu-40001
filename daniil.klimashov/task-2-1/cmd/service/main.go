@@ -48,10 +48,14 @@ func main() {
 
 	if _, err := fmt.Scan(&departmentAmount); err != nil {
 		fmt.Println("Invalid number or departments")
+
+		return
 	}
 
 	if _, err := fmt.Scan(&employeeAmount); err != nil {
 		fmt.Println("Invalid number of employees")
+
+		return
 	}
 
 	for range departmentAmount {
@@ -61,11 +65,15 @@ func main() {
 			var operator string
 			if _, err := fmt.Scan(&operator); err != nil {
 				fmt.Println("Invalid operator")
+
+				return
 			}
 
 			var temp int
 			if _, err := fmt.Scan(&temp); err != nil {
 				fmt.Println("Invalid temperature limit value")
+
+				return
 			}
 
 			dept.updateDesiredTemperature(operator, temp)
@@ -76,6 +84,8 @@ func main() {
 
 		if _, err := fmt.Scan(&employeeAmount); err != nil {
 			fmt.Println("Invalid number of employees")
+
+			return
 		}
 	}
 }
