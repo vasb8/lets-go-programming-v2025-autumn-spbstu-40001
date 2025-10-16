@@ -55,11 +55,9 @@ func main() {
 	}
 
 	for range departmentAmount {
-
 		dept := newDepartment()
 
 		for range employeeAmount {
-
 			var operator string
 			if _, err := fmt.Scan(&operator); err != nil {
 				fmt.Println("Invalid operator")
