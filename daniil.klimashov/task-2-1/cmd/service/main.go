@@ -2,11 +2,6 @@ package main
 
 import "fmt"
 
-const (
-	defaultMinTemperature = 15
-	defaultMaxTemperature = 30
-)
-
 type department struct {
 	minTemp int
 	maxTemp int
