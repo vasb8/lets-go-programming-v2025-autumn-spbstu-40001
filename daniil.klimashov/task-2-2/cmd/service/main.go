@@ -20,9 +20,9 @@ func (h *IntHeap) Swap(i, j int) {
 }
 
 func (h *IntHeap) Push(x any) {
-	value, err := x.(int)
+	value, ok := x.(int)
 
-	if !err {
+	if !ok {
 		fmt.Println("Invalid value passed to heap")
 
 		return
