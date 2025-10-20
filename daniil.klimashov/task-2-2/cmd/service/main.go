@@ -12,7 +12,7 @@ func (h *IntHeap) Len() int {
 }
 
 func (h *IntHeap) Less(i, j int) bool {
-	return (*h)[i] < (*h)[j]
+	return (*h)[i] > (*h)[j]
 }
 
 func (h *IntHeap) Swap(i, j int) {
@@ -22,7 +22,7 @@ func (h *IntHeap) Swap(i, j int) {
 func (h *IntHeap) Push(x any) {
 	value, err := x.(int)
 
-	if err {
+	if !err {
 		fmt.Println("Invalid value passed to heap")
 
 		return
@@ -32,15 +32,17 @@ func (h *IntHeap) Push(x any) {
 }
 func (h *IntHeap) Pop() any {
 	old := *h
-	n := len(old)
-	if n == 0 {
+	length := len(old)
+
+	if length == 0 {
 		fmt.Println("Invalid length of heap")
 
 		return nil
 	}
 
-	x := old[n-1]
-	*h = old[0 : n-1]
+	x := old[length-1]
+	*h = old[0 : length-1]
+
 	return x
 }
 
