@@ -5,6 +5,11 @@ import (
 	"fmt"
 )
 
+const (
+	defaultMinTemp = 15
+	defaultMaxTemp = 30
+)
+
 var ErrInvalidOperator = errors.New("invalid operator")
 
 type department struct {
@@ -13,11 +18,11 @@ type department struct {
 }
 
 func newDepartment() department {
-	return department{minTemp: 15, maxTemp: 30}
+	return department{minTemp: defaultMinTemp, maxTemp: defaultMaxTemp}
 }
 
-func (d *department) updateDesiredTemperature(op string, temp int) error {
-	switch op {
+func (d *department) updateDesiredTemperature(operator string, temp int) error {
+	switch operator {
 	case ">=":
 		if temp > d.minTemp {
 			d.minTemp = temp
@@ -27,7 +32,7 @@ func (d *department) updateDesiredTemperature(op string, temp int) error {
 			d.maxTemp = temp
 		}
 	default:
-		return fmt.Errorf("operation '%s': %w", op, ErrInvalidOperator)
+		return fmt.Errorf("operation '%s': %w", operator, ErrInvalidOperator)
 	}
 
 	return nil
@@ -52,13 +57,14 @@ func main() {
 
 	for range departmentAmount {
 		var employeeAmount int
-		temperature := newDepartment()
 
 		if _, err := fmt.Scan(&employeeAmount); err != nil {
 			fmt.Println("Invalid number of employees", err)
 
 			return
 		}
+
+		temperature := newDepartment()
 
 		for range employeeAmount {
 			var (
