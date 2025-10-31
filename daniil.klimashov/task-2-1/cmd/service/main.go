@@ -17,8 +17,11 @@ type department struct {
 	maxTemp int
 }
 
-func newDepartment() department {
-	return department{minTemp: defaultMinTemp, maxTemp: defaultMaxTemp}
+func newDepartment(min, max int) *department {
+	return &department{
+		minTemp: min,
+		maxTemp: max,
+	}
 }
 
 func (d *department) updateDesiredTemperature(operator string, temp int) error {
@@ -32,7 +35,7 @@ func (d *department) updateDesiredTemperature(operator string, temp int) error {
 			d.maxTemp = temp
 		}
 	default:
-		return fmt.Errorf("operation '%s': %w", operator, ErrInvalidOperator)
+		return fmt.Errorf("operation %q: %w", operator, ErrInvalidOperator)
 	}
 
 	return nil
@@ -41,9 +44,8 @@ func (d *department) updateDesiredTemperature(operator string, temp int) error {
 func (d *department) getDesiredTemperature() int {
 	if d.minTemp > d.maxTemp {
 		return -1
-	} else {
-		return d.minTemp
 	}
+	return d.minTemp
 }
 
 func main() {
@@ -51,7 +53,6 @@ func main() {
 
 	if _, err := fmt.Scan(&departmentAmount); err != nil {
 		fmt.Println("Invalid number or departments", err)
-
 		return
 	}
 
@@ -60,11 +61,10 @@ func main() {
 
 		if _, err := fmt.Scan(&employeeAmount); err != nil {
 			fmt.Println("Invalid number of employees", err)
-
 			return
 		}
 
-		temperature := newDepartment()
+		temperature := newDepartment(defaultMinTemp, defaultMaxTemp)
 
 		for range employeeAmount {
 			var (
@@ -74,20 +74,17 @@ func main() {
 
 			if _, err := fmt.Scan(&operator); err != nil {
 				fmt.Println("Invalid operator", err)
-
 				return
 			}
 
 			if _, err := fmt.Scan(&temp); err != nil {
 				fmt.Println("Invalid temperature limit value", err)
-
 				return
 			}
 
 			err := temperature.updateDesiredTemperature(operator, temp)
 			if err != nil {
-				fmt.Println("Invalid operator")
-
+				fmt.Println("Error updating temperature:", err)
 				return
 			}
 
