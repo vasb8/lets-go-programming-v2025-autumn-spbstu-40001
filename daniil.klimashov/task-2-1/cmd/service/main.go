@@ -77,17 +77,20 @@ func main() {
 
 			if _, err := fmt.Scan(&operator); err != nil {
 				fmt.Println("Invalid operator", err)
+
 				return
 			}
 
 			if _, err := fmt.Scan(&temp); err != nil {
 				fmt.Println("Invalid temperature limit value", err)
+
 				return
 			}
 
 			err := temperature.updateDesiredTemperature(operator, temp)
 			if err != nil {
 				fmt.Println("Error updating temperature:", err)
+
 				return
 			}
 
