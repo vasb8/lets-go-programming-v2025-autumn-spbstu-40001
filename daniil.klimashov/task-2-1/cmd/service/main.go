@@ -17,10 +17,10 @@ type department struct {
 	maxTemp int
 }
 
-func newDepartment(min, max int) *department {
+func newDepartment(minTemp, maxTemp int) *department {
 	return &department{
-		minTemp: min,
-		maxTemp: max,
+		minTemp: minTemp,
+		maxTemp: maxTemp,
 	}
 }
 
@@ -45,6 +45,7 @@ func (d *department) getDesiredTemperature() int {
 	if d.minTemp > d.maxTemp {
 		return -1
 	}
+
 	return d.minTemp
 }
 
@@ -53,6 +54,7 @@ func main() {
 
 	if _, err := fmt.Scan(&departmentAmount); err != nil {
 		fmt.Println("Invalid number or departments", err)
+
 		return
 	}
 
@@ -61,6 +63,7 @@ func main() {
 
 		if _, err := fmt.Scan(&employeeAmount); err != nil {
 			fmt.Println("Invalid number of employees", err)
+
 			return
 		}
 
